@@ -55,7 +55,7 @@ class contrail::analytics::config (
       'analytics_list'         => "${hiera('contrail_analytics_node_ips')}",
       'compute_list'           => "${hiera('contrail_vrouter_node_ips')}",
       'enable_config_service'  => 'True',
-      'cloud_orchestrator'     => 'kubernetes',
+      'cloud_orchestrator'     => 'openstack',
       'controller_ip'          => "${hiera('public_virtual_ip')}",
     },
   } 
