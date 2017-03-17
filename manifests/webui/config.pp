@@ -46,14 +46,14 @@ class contrail::webui::config (
   $cert_file                 = '',
 ) {
 
-  $contrail_vip = $contrail_config_vip
-  file { '/etc/contrail/config.global.js' :
-    ensure  => file,
-    content => template('contrail/config.global.js.erb'),
-  }
-  file { '/etc/contrail/contrail-webui-userauth.js' :
-    ensure  => file,
-    content => template('contrail/contrail-webui-userauth.js.erb'),
-  }
+#  $contrail_vip = $contrail_config_vip
+#  file { '/etc/contrail/config.global.js' :
+#    ensure  => file,
+#    content => template('contrail/config.global.js.erb'),
+#  }
+#  file { '/etc/contrail/contrail-webui-userauth.js' :
+#    ensure  => file,
+#    content => template('contrail/contrail-webui-userauth.js.erb'),
+#  }
 
 }

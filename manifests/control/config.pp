@@ -41,13 +41,13 @@ class contrail::control::config (
   validate_hash($control_config)
   validate_hash($control_nodemgr_config)
 
-  $contrail_control_config         = { 'path' => '/etc/contrail/contrail-control.conf' }
-  $contrail_control_nodemgr_config = { 'path' => '/etc/contrail/contrail-control-nodemgr.conf' }
-  $contrail_dns_config             = { 'path' => '/etc/contrail/contrail-dns.conf' }
-
-  create_ini_settings($control_config, $contrail_control_config)
-  create_ini_settings($control_nodemgr_config, $contrail_control_nodemgr_config)
-  create_ini_settings($dns_config, $contrail_dns_config)
+#  $contrail_control_config         = { 'path' => '/etc/contrail/contrail-control.conf' }
+#  $contrail_control_nodemgr_config = { 'path' => '/etc/contrail/contrail-control-nodemgr.conf' }
+#  $contrail_dns_config             = { 'path' => '/etc/contrail/contrail-dns.conf' }
+#
+#  create_ini_settings($control_config, $contrail_control_config)
+#  create_ini_settings($control_nodemgr_config, $contrail_control_nodemgr_config)
+#  create_ini_settings($dns_config, $contrail_dns_config)
 
   if $forwarder {
     if is_array($forwarder) {
@@ -58,17 +58,17 @@ class contrail::control::config (
   } else {
     $forwarders_option = ''
   }
-  file {'/etc/ld.so.conf.d/contrail.conf':
-    ensure => file,
-    content => '/usr/lib',
-  } ->
-  exec { '/sbin/ldconfig':
-    command => '/sbin/ldconfig',
-  }
-  if $manage_named_conf {
-    file { '/etc/contrail/dns/contrail-named.conf' :
-      ensure  => file,
-      content => template('contrail/contrail-named.conf.erb'),
-    }
-  }
+#  file {'/etc/ld.so.conf.d/contrail.conf':
+#    ensure => file,
+#    content => '/usr/lib',
+#  } ->
+#  exec { '/sbin/ldconfig':
+#    command => '/sbin/ldconfig',
+#  }
+#  if $manage_named_conf {
+#    file { '/etc/contrail/dns/contrail-named.conf' :
+#      ensure  => file,
+#      content => template('contrail/contrail-named.conf.erb'),
+#    }
+#  }
 }

@@ -1,4 +1,4 @@
-class contrail::analyticsdb::contrailctl () {
+class contrail::analyticsdatabase::contrailctl () {
 
   file { '/etc/contrailctl':
     ensure => 'directory',

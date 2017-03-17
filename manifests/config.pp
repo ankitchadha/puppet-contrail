@@ -21,7 +21,7 @@ class contrail::config (
 ) inherits contrail::params  {
 
   anchor {'contrail::config::start': } ->
-  class {'::contrail::config::install': } ->
+  #class {'::contrail::config::install': } ->
   class {'::contrail::config::config': 
     api_config              => $api_config,
     basicauthusers_property => $basicauthusers_property,
@@ -33,7 +33,7 @@ class contrail::config (
     svc_monitor_config      => $svc_monitor_config,
     vnc_api_lib_config      => $vnc_api_lib_config,
   } ~>
-  class {'::contrail::config::service': }
+  #class {'::contrail::config::service': }
   anchor {'contrail::config::end': }
   
 }

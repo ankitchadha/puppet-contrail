@@ -27,7 +27,7 @@ class contrail::webui (
 ) inherits contrail::params {
 
   anchor {'contrail::webui::start': } ->
-  class {'::contrail::webui::install': } ->
+  #class {'::contrail::webui::install': } ->
   class {'::contrail::webui::config': 
     openstack_vip             => $openstack_vip,
     contrail_config_vip       => $contrail_config_vip,
@@ -46,7 +46,7 @@ class contrail::webui (
     auth_protocol             => $auth_protocol,
 #  } ~>
   } ->
-  class {'::contrail::webui::service': }
+  #class {'::contrail::webui::service': }
   anchor {'contrail::webui::end': }
   
 }

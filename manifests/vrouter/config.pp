@@ -80,23 +80,23 @@ class contrail::vrouter::config (
 #  include ::contrail::ctrl_details
 #  include ::contrail::service_token
 #
-  file { '/etc/contrail/contrail-keystone-auth.conf':
-    ensure => file,
-  }
+#  file { '/etc/contrail/contrail-keystone-auth.conf':
+#    ensure => file,
+#  }
 
   validate_hash($vrouter_agent_config)
   validate_hash($vrouter_nodemgr_config)
   validate_hash($keystone_config)
 
-  $contrail_keystone_config = { 'path' => '/etc/contrail/contrail-keystone-auth.conf' }
-  $contrail_vrouter_agent_config = { 'path' => '/etc/contrail/contrail-vrouter-agent.conf' }
-  $contrail_vrouter_nodemgr_config = { 'path' => '/etc/contrail/contrail-vrouter-nodemgr.conf' }
-  $contrail_vnc_api_lib_config = { 'path' => '/etc/contrail/vnc_api_lib.ini' }
-
-  create_ini_settings($keystone_config, $contrail_keystone_config)
-  create_ini_settings($vrouter_agent_config, $contrail_vrouter_agent_config)
-  create_ini_settings($vrouter_nodemgr_config, $contrail_vrouter_nodemgr_config)
-  create_ini_settings($vnc_api_lib_config, $contrail_vnc_api_lib_config)
+#  $contrail_keystone_config = { 'path' => '/etc/contrail/contrail-keystone-auth.conf' }
+#  $contrail_vrouter_agent_config = { 'path' => '/etc/contrail/contrail-vrouter-agent.conf' }
+#  $contrail_vrouter_nodemgr_config = { 'path' => '/etc/contrail/contrail-vrouter-nodemgr.conf' }
+#  $contrail_vnc_api_lib_config = { 'path' => '/etc/contrail/vnc_api_lib.ini' }
+#
+#  create_ini_settings($keystone_config, $contrail_keystone_config)
+#  create_ini_settings($vrouter_agent_config, $contrail_vrouter_agent_config)
+#  create_ini_settings($vrouter_nodemgr_config, $contrail_vrouter_nodemgr_config)
+#  create_ini_settings($vnc_api_lib_config, $contrail_vnc_api_lib_config)
 
   exec { '/sbin/weak-modules --add-kernel' :
     command => '/sbin/weak-modules --add-kernel',
@@ -104,75 +104,75 @@ class contrail::vrouter::config (
   group { 'nogroup':
       ensure => present,
   }
-  if $step == 5 and !$is_tsn {
-    file { '/nova_libvirt.patch' :
-      ensure  => file,
-      content => template('contrail/vrouter/nova_libvirt.patch.erb'),
-    } ->
-    file_line { 'patch nova':
-      ensure => present,
-      path   => '/usr/lib/python2.7/site-packages/nova/virt/libvirt/designer.py',
-      line   => '    conf.script = None',
-      match  => '^\ \ \ \ conf.script\ \=',
-    }
-  }
+#  if $step == 5 and !$is_tsn {
+#    file { '/nova_libvirt.patch' :
+#      ensure  => file,
+#      content => template('contrail/vrouter/nova_libvirt.patch.erb'),
+#    } ->
+#    file_line { 'patch nova':
+#      ensure => present,
+#      path   => '/usr/lib/python2.7/site-packages/nova/virt/libvirt/designer.py',
+#      line   => '    conf.script = None',
+#      match  => '^\ \ \ \ conf.script\ \=',
+#    }
+#  }
+#
+#  file { '/etc/contrail/agent_param' :
+#    ensure  => file,
+#    content => template('contrail/vrouter/agent_param.erb'),
+#  }
 
-  file { '/etc/contrail/agent_param' :
-    ensure  => file,
-    content => template('contrail/vrouter/agent_param.erb'),
-  }
-
-  file { '/etc/contrail/default_pmac' :
-    ensure  => file,
-    content => $macaddr,
-  }
-
-  file { '/etc/contrail/contrailnetns.te' :
-    ensure  => file,
-    source => '/usr/share/openstack-puppet/modules/contrail/files/vrouter/contrailnetns.te',
-  } ->
-  exec { 'checkmodule -M -m -o /etc/contrail/contrailnetns.mod /etc/contrail/contrailnetns.te':
-    command => '/bin/checkmodule -M -m -o /etc/contrail/contrailnetns.mod /etc/contrail/contrailnetns.te',
-  } ->
-  exec { 'semodule_package -o /etc/contrail/contrailnetns.pp -m /etc/contrail/contrailnetns.mod':
-    command => '/bin/semodule_package -o /etc/contrail/contrailnetns.pp -m /etc/contrail/contrailnetns.mod',
-  } ->
-  exec { 'semodule -i /etc/contrail/contrailnetns.pp':
-    command => '/sbin/semodule -i /etc/contrail/contrailnetns.pp',
-  }
-  file { '/etc/contrail/contrailhaproxy.te' :
-    ensure  => file,
-    source => '/usr/share/openstack-puppet/modules/contrail/files/vrouter/contrailhaproxy.te',
-  } ->
-  exec { 'checkmodule -M -m -o /etc/contrail/contrailhaproxy.mod /etc/contrail/contrailhaproxy.te':
-    command => '/bin/checkmodule -M -m -o /etc/contrail/contrailhaproxy.mod /etc/contrail/contrailhaproxy.te',
-  } ->
-  exec { 'semodule_package -o /etc/contrail/contrailhaproxy.pp -m /etc/contrail/contrailhaproxy.mod':
-    command => '/bin/semodule_package -o /etc/contrail/contrailhaproxy.pp -m /etc/contrail/contrailhaproxy.mod',
-  } ->
-  exec { 'semodule -i /etc/contrail/contrailhaproxy.pp':
-    command => '/sbin/semodule -i /etc/contrail/contrailhaproxy.pp',
-  }
-
-  file { '/etc/contrail/vrouter_nodemgr_param' :
-    ensure  => file,
-    content => "DISCOVERY=${discovery_ip}",
-  }
-  if $::ipaddress_vhost0 != $vhost_ip {
-    file { '/opt/contrail/utils/update_dev_net_config_files.py':
-      ensure => file,
-      source => '/usr/share/openstack-puppet/modules/contrail/files/vrouter/update_dev_net_config_files.py',
-    } -> 
-    exec { '/bin/python /opt/contrail/utils/update_dev_net_config_files.py' :
-      path => '/usr/bin',
-      command => "/bin/python /opt/contrail/utils/update_dev_net_config_files.py \
-                   --vhost_ip ${vhost_ip} \
-                   --dev ${device} \
-                   --compute_dev ${device} \
-                   --netmask ${netmask} \
-                   --gateway ${gateway} \
-                   --cidr ${vhost_ip}/${mask} \
-                   --mac ${macaddr}",
-    }
-  }
+#  file { '/etc/contrail/default_pmac' :
+#    ensure  => file,
+#    content => $macaddr,
+#  }
+#
+#  file { '/etc/contrail/contrailnetns.te' :
+#    ensure  => file,
+#    source => '/usr/share/openstack-puppet/modules/contrail/files/vrouter/contrailnetns.te',
+#  } ->
+#  exec { 'checkmodule -M -m -o /etc/contrail/contrailnetns.mod /etc/contrail/contrailnetns.te':
+#    command => '/bin/checkmodule -M -m -o /etc/contrail/contrailnetns.mod /etc/contrail/contrailnetns.te',
+#  } ->
+#  exec { 'semodule_package -o /etc/contrail/contrailnetns.pp -m /etc/contrail/contrailnetns.mod':
+#    command => '/bin/semodule_package -o /etc/contrail/contrailnetns.pp -m /etc/contrail/contrailnetns.mod',
+#  } ->
+#  exec { 'semodule -i /etc/contrail/contrailnetns.pp':
+#    command => '/sbin/semodule -i /etc/contrail/contrailnetns.pp',
+#  }
+#  file { '/etc/contrail/contrailhaproxy.te' :
+#    ensure  => file,
+#    source => '/usr/share/openstack-puppet/modules/contrail/files/vrouter/contrailhaproxy.te',
+#  } ->
+#  exec { 'checkmodule -M -m -o /etc/contrail/contrailhaproxy.mod /etc/contrail/contrailhaproxy.te':
+#    command => '/bin/checkmodule -M -m -o /etc/contrail/contrailhaproxy.mod /etc/contrail/contrailhaproxy.te',
+#  } ->
+#  exec { 'semodule_package -o /etc/contrail/contrailhaproxy.pp -m /etc/contrail/contrailhaproxy.mod':
+#    command => '/bin/semodule_package -o /etc/contrail/contrailhaproxy.pp -m /etc/contrail/contrailhaproxy.mod',
+#  } ->
+#  exec { 'semodule -i /etc/contrail/contrailhaproxy.pp':
+#    command => '/sbin/semodule -i /etc/contrail/contrailhaproxy.pp',
+#  }
+#
+#  file { '/etc/contrail/vrouter_nodemgr_param' :
+#    ensure  => file,
+#    content => "DISCOVERY=${discovery_ip}",
+#  }
+#  if $::ipaddress_vhost0 != $vhost_ip {
+#    file { '/opt/contrail/utils/update_dev_net_config_files.py':
+#      ensure => file,
+#      source => '/usr/share/openstack-puppet/modules/contrail/files/vrouter/update_dev_net_config_files.py',
+#    } -> 
+#    exec { '/bin/python /opt/contrail/utils/update_dev_net_config_files.py' :
+#      path => '/usr/bin',
+#      command => "/bin/python /opt/contrail/utils/update_dev_net_config_files.py \
+#                   --vhost_ip ${vhost_ip} \
+#                   --dev ${device} \
+#                   --compute_dev ${device} \
+#                   --netmask ${netmask} \
+#                   --gateway ${gateway} \
+#                   --cidr ${vhost_ip}/${mask} \
+#                   --mac ${macaddr}",
+#    }
+#  }
 }

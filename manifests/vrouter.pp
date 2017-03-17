@@ -25,7 +25,7 @@ class contrail::vrouter (
 ) inherits contrail::params {
 
   anchor {'contrail::vrouter::start': } ->
-  class {'::contrail::vrouter::install': } ->
+  #class {'::contrail::vrouter::install': } ->
   class {'::contrail::vrouter::config':
     compute_device         => $physical_interface,
     device                 => $physical_interface,
@@ -41,13 +41,13 @@ class contrail::vrouter (
     vrouter_nodemgr_config => $vrouter_nodemgr_config,
     vnc_api_lib_config     => $vnc_api_lib_config,
   } ~>
-  class {'::contrail::vrouter::service': 
-    cidr               => $mask,
-    gateway            => $gateway,
-    host_ip            => $host_ip,
-    is_tsn             => $is_tsn,
-    physical_interface => $physical_interface,
-    vhost_ip           => $vhost_ip,
-  }
+  #class {'::contrail::vrouter::service': 
+  #  cidr               => $mask,
+  #  gateway            => $gateway,
+  #  host_ip            => $host_ip,
+  #  is_tsn             => $is_tsn,
+  #  physical_interface => $physical_interface,
+  #  vhost_ip           => $vhost_ip,
+  #}
   anchor {'contrail::vrouter::end': }
 }

@@ -22,7 +22,7 @@ class contrail::analytics (
 ) inherits contrail::params {
 
   anchor {'contrail::analytics::start': } ->
-  class {'::contrail::analytics::install': } ->
+  #class {'::contrail::analytics::install': } ->
   class {'::contrail::analytics::config': 
     alarm_gen_config         => $alarm_gen_config,
     analytics_api_config     => $analytics_api_config,
@@ -35,7 +35,7 @@ class contrail::analytics (
     topology_config          => $topology_config,
     vnc_api_lib_config       => $vnc_api_lib_config,
   } ~>
-  class {'::contrail::analytics::service': }
+  #class {'::contrail::analytics::service': }
   anchor {'contrail::analytics::end': }
   
 }
