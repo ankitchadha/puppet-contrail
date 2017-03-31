@@ -88,7 +88,7 @@ class contrail::config::config (
   $contrail_api_config = { 'path' => '/etc/contrail/contrail-api.conf' }
   $contrail_alarm_gen_config = { 'path' => '/etc/contrail/contrail-alarm-gen.conf' }
   $contrail_config_nodemgr_config = { 'path' => '/etc/contrail/contrail-config-nodemgr.conf' }
-  $contrail_container_api_config = { 'path' => '/etc/contrailctl/controller.conf' }
+#  $contrail_container_api_config = { 'path' => '/etc/contrailctl/controller.conf' }
   $contrail_device_manager_config = { 'path' => '/etc/contrail/contrail-device-manager.conf' }
   $contrail_discovery_config = { 'path' => '/etc/contrail/contrail-discovery.conf' }
   $contrail_keystone_config = { 'path' => '/etc/contrail/contrail-keystone-auth.conf' }

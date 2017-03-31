@@ -40,7 +40,7 @@ class contrail::analyticsdatabase::config (
   validate_hash($container_analyticsdb_config)
   validate_hash($database_nodemgr_config)
   validate_hash($vnc_api_lib_config)
-  $contrail_container_analyticsdb_config = { 'path' => '/etc/contrailctl/analyticsdb.conf' }
+#  $contrail_container_analyticsdb_config = { 'path' => '/etc/contrailctl/analyticsdb.conf' }
   $contrail_database_nodemgr_config = { 'path' => '/etc/contrail/contrail-database-nodemgr.conf' }
   $contrail_vnc_api_lib_config = { 'path' => '/etc/contrail/vnc_api_lib.ini' }
   $cassandra_seeds_list = $cassandra_servers[0,2]

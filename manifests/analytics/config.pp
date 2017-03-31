@@ -75,7 +75,7 @@ class contrail::analytics::config (
   $contrail_alarm_gen_config         = { 'path' => '/etc/contrail/contrail-alarm-gen.conf' }
   $contrail_analytics_api_config     = { 'path' => '/etc/contrail/contrail-analytics-api.conf' }
   $contrail_collector_config         = { 'path' => '/etc/contrail/contrail-collector.conf' }
-  $contrail_container_analytics_api_config = { 'path' => '/etc/contrailctl/analytics.conf' }
+#  $contrail_container_analytics_api_config = { 'path' => '/etc/contrailctl/analytics.conf' }
   $contrail_keystone_config          = { 'path' => '/etc/contrail/contrail-keystone-auth.conf' }
   $contrail_query_engine_config      = { 'path' => '/etc/contrail/contrail-query-engine.conf' }
   $contrail_snmp_collector_config    = { 'path' => '/etc/contrail/contrail-snmp-collector.conf' }
