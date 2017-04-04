@@ -93,7 +93,7 @@ class contrail::analytics::config (
   create_ini_settings($analytics_api_config, $contrail_analytics_api_config)
   create_ini_settings($analytics_nodemgr_config, $contrail_analytics_nodemgr_config)
   create_ini_settings($collector_config, $contrail_collector_config)
-  create_ini_settings($container_analytics_api_config, $contrail_container_analytics_api_config)
+#  create_ini_settings($container_analytics_api_config, $contrail_container_analytics_api_config)
   create_ini_settings($keystone_config, $contrail_keystone_config)
   create_ini_settings($query_engine_config, $contrail_query_engine_config)
   create_ini_settings($snmp_collector_config, $contrail_snmp_collector_config)

@@ -97,7 +97,7 @@ class contrail::config::config (
   $contrail_vnc_api_lib_config = { 'path' => '/etc/contrail/vnc_api_lib.ini' }
 
   create_ini_settings($api_config, $contrail_api_config)
-  create_ini_settings($container_api_config, $contrail_api_config_new)
+#  create_ini_settings($container_api_config, $contrail_api_config_new)
   create_ini_settings($alarm_gen_config, $contrail_alarm_gen_config)
   create_ini_settings($config_nodemgr_config, $contrail_config_nodemgr_config)
   create_ini_settings($device_manager_config, $contrail_device_manager_config)

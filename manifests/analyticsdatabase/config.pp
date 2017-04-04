@@ -52,7 +52,7 @@ class contrail::analyticsdatabase::config (
     $kafka_replication = '1'
   }
 
-  create_ini_settings($container_analyticsdb_config, $contrail_container_analyticsdb_config)
+#  create_ini_settings($container_analyticsdb_config, $contrail_container_analyticsdb_config)
   create_ini_settings($database_nodemgr_config, $contrail_database_nodemgr_config)
   create_ini_settings($vnc_api_lib_config, $contrail_vnc_api_lib_config)
   validate_ipv4_address($cassandra_ip)
