@@ -41,6 +41,7 @@ class contrail::confignew::config (
   $api_config              = {},
   $basicauthusers_property = [],
   $config_nodemgr_config   = {},
+  $contrail_issu_config    = {},
   $device_manager_config   = {},
   $discovery_config        = {},
   $keystone_config         = {},
@@ -76,6 +77,7 @@ class contrail::confignew::config (
   validate_hash($alarm_gen_config)
   validate_hash($config_nodemgr_config)
   validate_hash($container_api_config)
+  validate_hash($contrail_issu_config)
   validate_hash($device_manager_config)
   validate_hash($discovery_config)
   validate_hash($keystone_config)
@@ -95,6 +97,7 @@ class contrail::confignew::config (
   $contrail_schema_config = { 'path' => '/etc/contrail/contrail-schema.conf' }
   $contrail_svc_monitor_config = { 'path' => '/etc/contrail/contrail-svc-monitor.conf' }
   $contrail_vnc_api_lib_config = { 'path' => '/etc/contrail/vnc_api_lib.ini' }
+  $contrail_issu_config_path = { 'path' => '/etc/contrail/contrail-issu.conf' }
 
   create_ini_settings($api_config, $contrail_api_config)
 #  create_ini_settings($container_api_config, $contrail_api_config_new)
@@ -106,6 +109,7 @@ class contrail::confignew::config (
   create_ini_settings($schema_config, $contrail_schema_config)
   create_ini_settings($svc_monitor_config, $contrail_svc_monitor_config)
   create_ini_settings($vnc_api_lib_config, $contrail_vnc_api_lib_config)
+  create_ini_settings($contrail_issu_config, $contrail_issu_config_path)
 
   file { '/etc/ifmap-server/basicauthusers.properties' :
     ensure  => file,
